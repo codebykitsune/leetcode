@@ -7,21 +7,20 @@
 # @lc code=start
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
-        min_price_so_far = prices[0]
-        max_profit_so_far = 0
+        left = 0
+        right = 1
+        max_price = 0
 
-        for i in range(1,len(prices)):
-            if prices[i] <= min_price_so_far:
-                min_price_so_far = prices[i]
+        while right < len(prices):
+            if prices[left] < prices[right]:
+                price = prices[right] - prices[left]
+                max_price = max(max_price, price)
+            else:
+                #右に進む
+                left = right
+            right += 1
             
-            #その日までの利益
-            todays_profit = prices[i] - min_price_so_far
-
-            if todays_profit > max_profit_so_far:
-                max_profit_so_far = todays_profit
-    
-    
-        return max_profit_so_far
+        return max_price
             
         
 # @lc code=end
